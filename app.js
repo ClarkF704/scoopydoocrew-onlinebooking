@@ -92,7 +92,7 @@ app.post('/charge', (req, res) => {
             <li>Email: ${email}</li>
             <li>Address: ${address}</li>
             <li>Phone: <a href="tel:${phone}">${phone}</a></li>
-            <li>Customer Confirmation ID: ${confirmationID} </li>
+            <li>Customer Booking Confirmation ID: ${confirmationID} </li>
           </ul>
         <h3>Message</h3>
         <p>${message}</p>
