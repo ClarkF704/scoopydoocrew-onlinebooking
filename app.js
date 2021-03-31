@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const keys = require('./config/keys');
-const stripe = require('stripe')(keys.stripeSecretKey);
+const stripe = require('stripe')(process.env.TEST_PRI_KEY);
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const nodemailer = require('nodemailer');
@@ -39,7 +39,7 @@ app.get('/contact', (req, res) => {
 
 app.get('/scheduler', (req, res) => {
   res.render('scheduler', {
-    stripePublishableKey: keys.stripePublishableKey,
+    stripePublishableKey: process.env.TEST_PUB_KEY,
   });
 });
 
