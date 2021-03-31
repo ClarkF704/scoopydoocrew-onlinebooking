@@ -1,3 +1,6 @@
+./config
+keys.js
+keys_prod.js
 node_modules
 keys_dev.js
 .env

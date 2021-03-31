@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require('express');
-const keys = require('./config/keys');
 const stripe = require('stripe')(process.env.TEST_PRI_KEY);
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
