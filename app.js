@@ -1,9 +1,17 @@
 require("dotenv").config();
 const express = require('express');
-const stripe = require('stripe')(process.env.TEST_PRI_KEY);
+const test_pri_key = null;
+const stripe = require('stripe')(process.env.TEST_PRI_KEY || test_pri_key);
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const nodemailer = require('nodemailer');
+
+
+const test_pub_key = null;
+const email_user = null;
+const email_pass = null;
+const service_type = null;
+
 
 
 const app = express();
@@ -38,7 +46,7 @@ app.get('/contact', (req, res) => {
 
 app.get('/scheduler', (req, res) => {
   res.render('scheduler', {
-    stripePublishableKey: process.env.TEST_PUB_KEY,
+    stripePublishableKey: process.env.TEST_PUB_KEY || test_pub_key,
   });
 });
 
@@ -78,9 +86,9 @@ app.post('/charge', (req, res) => {
     )
     .then((charge) => res.render('success'))
     .then(() => {
-      const emailCred = process.env.EMAIL_USERNAME
-      const passCred = process.env.EMAIL_PASS
-      const serviceCred = process.env.SERVICE_TYPE
+      const emailCred = process.env.EMAIL_USERNAME || email_user
+      const passCred = process.env.EMAIL_PASS || email_pass
+      const serviceCred = process.env.SERVICE_TYPE || service_type
 
       const outputScoopy = `
         <p>You have an appointment that needs scheduled. Please call <strong>${name}</strong></p>
