@@ -55,7 +55,7 @@ app.post('/charge', (req, res) => {
  }
  
   const confirmationID = makeid(12);
-  const amount = 1000;
+  const amount = 3500;
   const name = req.body.name
   const date = req.body.date
   const email = req.body.email
