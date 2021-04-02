@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require('express');
-const stripe = require('stripe')(process.env.TEST_PRI_KEY);
+const stripe = require('stripe')(process.env.PROD_PRI_KEY);
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const nodemailer = require('nodemailer');
@@ -38,7 +38,7 @@ app.get('/contact', (req, res) => {
 
 app.get('/scheduler', (req, res) => {
   res.render('scheduler', {
-    stripePublishableKey: process.env.TEST_PUB_KEY,
+    stripePublishableKey: process.env.PROD_PUB_KEY,
   });
 });
 
@@ -55,7 +55,7 @@ app.post('/charge', (req, res) => {
  }
  
   const confirmationID = makeid(12);
-  const amount = 8000;
+  const amount = 1000;
   const name = req.body.name
   const date = req.body.date
   const email = req.body.email
