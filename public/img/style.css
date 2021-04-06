@@ -245,10 +245,22 @@
   
   
   /* Responsive */
+
+  @media only screen and (max-width: 991px) {
+    .contact-card-index{
+      margin-top: 200px;
+      margin-left:300px;
+    }
+  }
+
   
   @media only screen and (max-width: 500px) {
     .h1-index{
       font-size: 45px;
+    }
+    .contact-card-index{
+      margin-top: 0px;
+      margin-left:0px;
     }
   
     .shadow-square{
