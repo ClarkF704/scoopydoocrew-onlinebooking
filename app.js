@@ -1,12 +1,14 @@
 require("dotenv").config();
 const express = require('express');
-const stripe = require('stripe')(process.env.PROD_PRI_KEY);
+const stripe = require('stripe')(process.env.TEST_PRI_KEY);
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const nodemailer = require('nodemailer');
+const {google} = require('googleapis')
 
 
 const app = express();
+const OAuth2 = google.auth.OAuth2;
 
 // Handlebars Middleware
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -38,7 +40,7 @@ app.get('/contact', (req, res) => {
 
 app.get('/scheduler', (req, res) => {
   res.render('scheduler', {
-    stripePublishableKey: process.env.PROD_PUB_KEY,
+    stripePublishableKey: process.env.TEST_PUB_KEY,
   });
 });
 
@@ -79,8 +81,11 @@ app.post('/charge', (req, res) => {
     .then((charge) => res.render('success'))
     .then(() => {
       const emailCred = process.env.EMAIL_USERNAME
-      const passCred = process.env.EMAIL_PASS
-      const serviceCred = process.env.SERVICE_TYPE
+
+      const OAuth2Client = new OAuth2(process.env.GOOGLE_CLOUD_PLAT_CLIENT_ID, process.env.GOOGLE_CLOUD_PLAT_CLIENT_SECRET)
+      OAuth2Client.setCredentials({refresh_token: process.env.GOOGLE_CLOUD_REFRESH_TOKEN})
+
+      const accessToken = OAuth2Client.getAccessToken();
 
       const outputScoopy = `
         <p>You have an appointment that needs scheduled. Please call <strong>${name}</strong></p>
@@ -102,26 +107,31 @@ app.post('/charge', (req, res) => {
     <p>Your confirmation ID is <strong>${confirmationID}</strong></p>
     <h2><strong>Welcome To The Crew !</strong></h2>
 `;
+
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
-        service: serviceCred,
-        auth: {
-          user: emailCred,
-          pass: passCred
-        }
+       service: process.env.SERVICE_TYPE,
+       auth: {
+         type: process.env.AUTH_TYPE,
+         user: process.env.EMAIL_USERNAME,
+         clientId: process.env.GOOGLE_CLOUD_PLAT_CLIENT_ID,
+         clientSecret: process.env.GOOGLE_CLOUD_PLAT_CLIENT_SECRET,
+         refreshToken: process.env.GOOGLE_CLOUD_REFRESH_TOKEN,
+         accessToken: accessToken
+       }
       });
       // setup email data with unicode symbols
       // To Self
       let mailOptions = {
-        from: emailCred,
-        to: emailCred,
+        from: process.env.EMAIL_USERNAME,
+        to: process.env.EMAIL_USERNAME,
         subject: 'Appointment Scheduled From Website',
         text: 'Schedule Time Slot',
         html: outputScoopy
       };
       // To Customer
       let mailOptionsCustomer = {
-        from: emailCred,
+        from: process.env.EMAIL_USERNAME,
         to: email,
         subject: 'ScoopyDooCrew Service Confirmation',
         text: 'Welcome To The Crew',

@@ -253,8 +253,15 @@
     }
   }
 
+  @media only screen and (max-width: 375px) {
+    .card-direction-index {
+      background-color: #01b0f0;
+    }
+  }
+
   
   @media only screen and (max-width: 500px) {
+    
     .h1-index{
       font-size: 45px;
     }
@@ -287,7 +294,7 @@
       width:300px;
     }
     .card-direction-index{
-      width: 15rem;
+      /* width: 15rem; */
       margin-left:50px;
       padding-top:5px;
       padding-bottom: 10px;
