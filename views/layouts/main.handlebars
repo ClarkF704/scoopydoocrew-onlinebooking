@@ -65,6 +65,100 @@
         todayHighlight: true
       }).datepicker('update', new Date());
     });
+
+    $(".dropdown-menu button").click(function(){
+      var selText = $(this).text();
+      $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+    });
+
+    $( "#optionTest" ).click(function() {
+      console.log($("select#optionTest").val())
+      var weelkySelect = $("select#optionTest").val()
+    });
+
+    function reScheduleAttributeSetterWeekly() {
+      const weeklyVal = $("#optionWeekly").val()
+      const biMonthlyVal = $("#optionBiMonthly").val()
+      const monthlyVal = $("#optionMonthly").val()
+      const oneTime = $("#optionOneTime").val()
+      if(weeklyVal !== ''){
+        console.log(weeklyVal)
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Confirm $<strong>${weeklyVal} Weekly Service</strong></span>`)
+        $( "#serviceConfirmBtn" ).prop( "disabled", false );
+        $("#biMonthlyGroupDiv").hide()
+        $("#monthlyGroupDiv").hide()
+        $("#oneTimer").hide()
+      } if(weeklyVal == 0) {
+        $("#weeklyGroupDiv").show()
+        $("#biMonthlyGroupDiv").show()
+        $("#monthlyGroupDiv").show()
+        $("#oneTimer").show()
+        $( "#serviceConfirmBtn" ).prop( "disabled", true );
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Please Select Service</span>`)
+      }
+    }
+    function reScheduleAttributeSetterBiMonthly() {
+      const weeklyVal = $("#optionWeekly").val()
+      const biMonthlyVal = $("#optionBiMonthly").val()
+      const monthlyVal = $("#optionMonthly").val()
+      const oneTime = $("#optionOneTime").val()
+      if(biMonthlyVal !== 0){
+        console.log(biMonthlyVal)
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Confirm $<strong>${biMonthlyVal} Bi-Monthly Service</strong></span>`)
+        $( "#serviceConfirmBtn" ).prop( "disabled", false );
+        $("#oneTimer").hide()
+        $("#weeklyGroupDiv").hide()
+        $("#monthlyGroupDiv").hide()
+      } if(biMonthlyVal == 0) {
+        $("#weeklyGroupDiv").show()
+        $("#biMonthlyGroupDiv").show()
+        $("#oneTimer").show()
+        $("#monthlyGroupDiv").show()
+        $( "#serviceConfirmBtn" ).prop( "disabled", true );
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Please Select Service</span>`)
+      }
+    }
+    function reScheduleAttributeSetterMonthly() {
+      const weeklyVal = $("#optionWeekly").val()
+      const biMonthlyVal = $("#optionBiMonthly").val()
+      const monthlyVal = $("#optionMonthly").val()
+      const oneTime = $("#optionOneTime").val()
+      if(monthlyVal !== 0){
+        console.log(monthlyVal)
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Confirm $<strong>${monthlyVal} Monthly Service</strong></span>`)
+        $( "#serviceConfirmBtn" ).prop( "disabled", false );
+        $("#biMonthlyGroupDiv").hide()
+        $("#oneTimer").hide()
+        $("#weeklyGroupDiv").hide()
+      } if(monthlyVal == 0) {
+        $("#weeklyGroupDiv").show()
+        $("#oneTimer").show()
+        $("#biMonthlyGroupDiv").show()
+        $("#monthlyGroupDiv").show()
+        $( "#serviceConfirmBtn" ).prop( "disabled", true );
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Please Select Service</span>`)
+      }
+    }
+    function reScheduleAttributeSetterOneTime(){
+      const weeklyVal = $("#optionWeekly").val()
+      const biMonthlyVal = $("#optionBiMonthly").val()
+      const monthlyVal = $("#optionMonthly").val()
+      const oneTime = $("#optionOneTime").val()
+      if(oneTime !== 0){
+        console.log(monthlyVal)
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Confirm $<strong>${oneTime} One Time Service</strong></span>`)
+        $( "#serviceConfirmBtn" ).prop( "disabled", false );
+        $("#biMonthlyGroupDiv").hide()
+        $("#monthlyGroupDiv").hide()
+        $("#weeklyGroupDiv").hide()
+      } if(oneTime == 0) {
+        $("#weeklyGroupDiv").show()
+        $("#biMonthlyGroupDiv").show()
+        $("#monthlyGroupDiv").show()
+        $( "#serviceConfirmBtn" ).prop( "disabled", true );
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Please Select Service</span>`)
+      }
+    }
   </script>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -72,3 +166,16 @@
 </body>
 
 </html>
+
+{{!--  if(biMonthlyVal !== ''){
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Confirm $<strong>${biMonthlyVal}</strong></span>`)
+        $( "#serviceConfirmBtn" ).prop( "disabled", false );
+        $("#weeklyGroupDiv").hide()
+        $("#monthlyGroupDiv").hide()
+      } if(biMonthlyVal == '') {
+        $("#weeklyGroupDiv").show()
+        $("#biMonthlyGroupDiv").show()
+        $("#monthlyGroupDiv").show()
+        $( "#serviceConfirmBtn" ).prop( "disabled", true );
+        $('#serviceConfirmBtn').html(`<span class="new-class-tester">Please Select Service</span>`)
+      } --}}

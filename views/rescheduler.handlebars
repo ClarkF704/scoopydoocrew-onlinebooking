@@ -1,0 +1,149 @@
+<div class='container'>
+  <div class='wrapper animated bounceInLeft'>
+    <div class='company-info'>
+      <h3 style="font-family: 'Acme', sans-serif">ScoopyDooCrew Online Booking</h3>
+      <ul>
+        <li style="font-family: 'Montserrat', sans-serif;"><i
+            class='fa fa-phone'
+          ></i>
+          704-680-7206</li>
+        <li style="font-family: 'Montserrat', sans-serif;"><i
+            class='fa fa-envelope'
+          ></i>
+          scoopydoocrewllc@gmail.com</li>
+      </ul>
+    </div>
+    <div class='contact'>
+      <h3 style="font-family: 'Acme', sans-serif">Re-Schedule Details</h3>
+      {{msg}}
+      <hr />
+      <br />
+      {{!-- data-image="{{scoopyDooCrewLogoIcon}}"  This is the logo for stripe checkout form--}}
+      <form action='/charge-reschedule' method='POST'>
+        <script
+          src='https://checkout.stripe.com/checkout.js'
+          class='stripe-button'
+          data-key='{{stripePublishableKey}}'
+          data-name='ScoopyDooCrew'
+          data-description='Online Service Booking'
+          data-locale='auto'
+        >
+        </script>
+        {{! data-amount=weeklyVal }}
+        <p style="font-family: 'Montserrat', sans-serif;">
+          <label>Name</label>
+          <input type='text' name='name' required />
+        </p>
+
+        <p style="font-family: 'Montserrat', sans-serif;">
+          <label>Email Address</label>
+          <input type='email' name='email' required />
+        </p>
+        <p style="font-family: 'Montserrat', sans-serif;">
+          <label>Phone Number</label>
+          <input type='text' name='phone' required />
+        </p>
+        <p style="font-family: 'Montserrat', sans-serif;">
+          <label>Service Address</label>
+          <input type='text' name='address' required />
+        </p>
+        <h3 style="font-family: 'Montserrat', sans-serif;">Service Selection</h3>
+        <hr />
+        <div id='weeklyGroupDiv'>
+          <label>Weekly</label>
+          <select
+            class='form-select'
+            aria-label='Default select example'
+            id='optionWeekly'
+            name='weekly'
+            onchange='reScheduleAttributeSetterWeekly()'
+          >
+            <option selected value='0'></option>
+            <option value='15'>1 Dog - $15</option>
+            <option value='17'>2 Dog - $17</option>
+            <option value='18'>3 Dog - $18</option>
+            <option value='20'>4 Dog - $20</option>
+          </select>
+        </div>
+        <div id='biMonthlyGroupDiv'>
+          <label>Bi-Monthly</label>
+          <select
+            class='form-select'
+            aria-label='Default select example'
+            id='optionBiMonthly'
+            name='biMonthly'
+            onchange='reScheduleAttributeSetterBiMonthly()'
+          >
+            <option selected value='0'> </option>
+            <option value='15'>1 Dog - $15</option>
+            <option value='18'>2 Dog - $18</option>
+            <option value='20'>3 Dog - $20</option>
+            <option value='23'>4 Dog - $23</option>
+          </select>
+        </div>
+        <div id='monthlyGroupDiv'>
+          <label>Monthly</label>
+          <select
+            class='form-select'
+            aria-label='Default select example'
+            id='optionMonthly'
+            name='monthly'
+            onchange='reScheduleAttributeSetterMonthly()'
+          >
+            <option selected value='0'> </option>
+            <option value='20'>1 Dog - $20</option>
+            <option value='23'>2 Dog - $23</option>
+            <option value='25'>3 Dog - $25</option>
+            <option value='28'>4 Dog - $28</option>
+          </select>
+        </div>
+        <div id="oneTimer">
+            <label>One Time Service</label>
+            <select
+            class='form-select'
+            aria-label='Default select example'
+            id='optionOneTime'
+            name='oneTime'
+            onchange='reScheduleAttributeSetterOneTime()'
+          >
+            <option selected value='0'> </option>
+            <option value='45'>One Time Service - $45</option>
+          </select>
+        </div>
+        <p class='full' style="font-family: 'Montserrat', sans-serif;">
+          <label>What should we be aware of ?</label>
+          <textarea name='message' rows='5'></textarea>
+        </p>
+        <p style="font-family: 'Montserrat', sans-serif;">
+          <label>Date:</label>
+          <div
+            id='datepicker'
+            class='input-group date'
+            data-date-format='mm-dd-yyyy'
+            required
+          >
+            <input class='form-control' type='text' name='date' required />
+            <span class='input-group-addon'><i
+                class='fa fa-calendar'
+                aria-hidden='true'
+              ></i></span>
+          </div>
+        </p>
+        <script>
+          // Hide default stripe button
+          document.getElementsByClassName('stripe-button-el')[0].style.display =
+          'none';
+        </script>
+        <button
+          disabled="true"
+          type='submit'
+          style="font-family: 'Montserrat', sans-serif;"
+          class='btn btn-outline-dark btn-lg'
+          onclick='reScheduleAttributeSetter()'
+          id='serviceConfirmBtn'
+        >Please Select Service Frequency</button>
+      </form>
+
+    </div>
+  </div>
+</div>
